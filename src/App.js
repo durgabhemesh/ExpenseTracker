@@ -1,16 +1,24 @@
-import logo from "./logo.svg";
+
 import "./App.css";
 import ExpenseItem from "./Components/ExpenseItem";
 import Form from './Components/Form';
 import Error from "./Components/Error";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import React   from 'react';
 
 
-
-
+const getLocalItems=()=>{
+  let list=localStorage.getItem('lists')
+  if(list){
+    return JSON.parse(localStorage.getItem('lists'));
+  }
+  else{
+    return [];
+  }
+}
 
 const App = () => {
-  const data=[{
+   const data=[{
     id: 'e1',
     date: new Date(),
     name: 'Happy Tracking',
@@ -49,8 +57,16 @@ const App = () => {
   
   ];
  
-const[fexp,setFexp]=useState(data);
   
+const[fexp,setFexp]=useState(getLocalItems());
+useEffect(()=>{
+  localStorage.setItem('lists',JSON.stringify(fexp));
+  
+},[fexp])
+// getSavedItems();
+// useEffect(()=>{
+//   getSavedItems();
+// },[]);
 const saveform=(enteredData)=>{
   const expenseData={
     ...enteredData,
@@ -70,6 +86,36 @@ setFexp(newtod)
 
 }
 
+// const savelocal=()=>{
+//   localStorage.setItem('todos',JSON.stringify(fexp));
+
+  
+ 
+
+// }
+
+// const getSavedItems=()=>{
+//   if(localStorage.getItem('todos'===null)){
+//     localStorage.setItem('todos',JSON.stringify([]));
+//   }
+//   else{
+//   let dii=JSON.parse(localStorage.getItem('todos'))
+  
+//   console.log(dii);
+ 
+  
+  
+
+//   }
+  
+// }
+
+
+
+//  localStorage.setItem("city", "Noida");  
+localStorage.removeItem('city')
+
+// localStorage.removeItem('city')
 
 
   return (
@@ -77,7 +123,7 @@ setFexp(newtod)
 
       <Form ondel={delHandler}  onSaveData={saveform}/>
       {/* <h2 className="h21">Total: {fexp.map((el)=>el.amount+)}</h2> */}
-      {fexp.length===0 ? <Error /> : (fexp.map((el,index)=> <ExpenseItem ondel={delHandler} name={el.name} id={index} key={el.id} amount={el.amount} date={el.date} />))}
+      {fexp.length===0 ? <Error /> : (fexp.map((el,index)=> <ExpenseItem ondel={delHandler} dd={el.date} name={el.name} id={index} key={el.id} amount={el.amount} date={el.date} />))}
       {/* {fexp.map((el,index)=> <ExpenseItem ondel={delHandler} name={el.name} id={index} key={el.id} amount={el.amount} date={el.date} />)} */}
       
      

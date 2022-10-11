@@ -1,7 +1,8 @@
 import React from "react";
+
 import './ExpenseItem.css'
 const ExpenseItem = (props) => {
-  const di=new Date(2000,11,5);
+ 
     
   return (
     <>
@@ -9,7 +10,7 @@ const ExpenseItem = (props) => {
     
     <div className="container">
       
-      <div className="date">{props.date.toDateString()}</div>
+      <div className="date">{props.date}</div>
       <div className="cont1">
         <div className="name">
         <h1>{props.name}</h1>
@@ -26,7 +27,7 @@ const ExpenseItem = (props) => {
     </div>
     
     </>
-    
+
   );
 };
 
